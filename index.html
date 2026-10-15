@@ -2,7 +2,11 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
+<link rel="manifest" href="/br-launcher/manifest.json">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#e74c3c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <title>Перекуп Авто 3D Cinema</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
@@ -197,49 +201,30 @@ body[data-cinema="off"] .cinema-grain{opacity:0;}
       <h1>🌍 Выбери город</h1>
       <p class="cp-sub">3 уникальных локации</p>
       <div class="cp-grid">
-        <button class="cp-card" data-city="batareya">
-          <div class="cp-ic">🏙️</div>
-          <div class="cp-name">Батарея</div>
-          <div class="cp-desc">Высотки, неон, центр</div>
-        </button>
-        <button class="cp-card" data-city="varzamas">
-          <div class="cp-ic">🏭</div>
-          <div class="cp-name">Варзамас</div>
-          <div class="cp-desc">Заводы, промзона, трубы</div>
-        </button>
-        <button class="cp-card" data-city="rublevka">
-          <div class="cp-ic">💎</div>
-          <div class="cp-name">Рублёвка</div>
-          <div class="cp-desc">Особняки, природа, элита</div>
-        </button>
+        <button class="cp-card" data-city="batareya"><div class="cp-ic">🏙️</div><div class="cp-name">Батарея</div><div class="cp-desc">Высотки, неон</div></button>
+        <button class="cp-card" data-city="varzamas"><div class="cp-ic">🏭</div><div class="cp-name">Варзамас</div><div class="cp-desc">Заводы, промзона</div></button>
+        <button class="cp-card" data-city="rublevka"><div class="cp-ic">💎</div><div class="cp-name">Рублёвка</div><div class="cp-desc">Особняки, элита</div></button>
       </div>
     </div>
   </div>
-
   <div class="loading3d" id="loading3d" style="display:none">
     <h1>🎬 3D СЦЕНА</h1>
     <p id="load-text">Загрузка…</p>
     <div class="bar"><i id="load-bar"></i></div>
   </div>
-
   <canvas id="c"></canvas>
-
   <div class="cinema-overlay"></div>
   <div class="cinema-grain"></div>
   <div class="cinema-bars top"></div>
   <div class="cinema-bars bottom"></div>
-
   <div class="city-tag" id="city-tag">🏙️ Батарея</div>
-
   <div class="hud3d">
     <div class="hud3d-left"><div class="hud3d-money" id="hud-money">💰 0 ₽</div><div class="hud3d-speed" id="hud-speed">0 <small>км/ч</small></div></div>
     <div class="hud3d-right"><button class="hud3d-btn home" id="btn-home">📱</button></div>
   </div>
-
   <button class="cinema-btn on" id="btn-cinema">🎬</button>
   <div class="minimap"><canvas id="minimap"></canvas></div>
   <button class="garage-prompt" id="garage-prompt">🏠 В гараж</button>
-
   <div class="controls3d">
     <div class="dpad">
       <button class="up" data-key="up">▲</button>
@@ -253,17 +238,8 @@ body[data-cinema="off"] .cinema-grain{opacity:0;}
     </div>
   </div>
   <div class="toast" id="toast"></div>
-</div>
-```
-
----
-
-📄 ЧАСТЬ 2 — JavaScript (вся логика)
-
-Скопируй это сразу после Части 1:
-
-```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 "use strict";
 const $ = s => document.querySelector(s);
@@ -273,7 +249,7 @@ const rndI = (a,b) => Math.floor(rnd(a,b+1));
 const pick = a => a[Math.floor(Math.random()*a.length)];
 function fmt(n){n=Math.round(n);if(n>=1e9)return(n/1e9).toFixed(2)+'B';if(n>=1e6)return(n/1e6).toFixed(2)+'M';if(n>=1e3)return(n/1e3).toFixed(1)+'K';return n.toString();}
 const money = n => fmt(n)+' ₽';
-const SAVE_KEY = 'perekup3d_v5';
+const SAVE_KEY = 'perekup3d_v6';
 let S = null, currentApp = null;
 
 const CAR_MODELS = [
@@ -319,7 +295,7 @@ const JOBS = [
 
 function defaultState(){
   return {
-    v:5, nick:'Перекуп', avatar:'🧑‍💼', theme:'dark', deviceMode:null,
+    v:6, nick:'Перекуп', avatar:'🧑‍💼', theme:'dark', deviceMode:null,
     balance:150000, reputation:50, dealsBought:0, dealsSold:0,
     totalEarned:0, workEarned:0, bestDeal:0,
     cars:[], listings:[], offers:[], garageLimit:5,
@@ -1521,7 +1497,7 @@ function startGame(){
   setInterval(updateClock, 15000);
   window.addEventListener('beforeunload', save);
   document.addEventListener('visibilitychange', ()=>{if(document.hidden)save();});
-  setTimeout(()=>push('🎬 Добро пожаловать!','Нажми «Выехать в город» — выбери город','🏙️'),800);
+  setTimeout(()=>push('🎬 Добро пожаловать!','Нажми «Выехать в город»','🏙️'),800);
   save();
 }
 function init(){
@@ -1538,4 +1514,4 @@ if(document.readyState === 'loading') document.addEventListener('DOMContentLoade
 else init();
 </script>
 </body>
-</html>
+  </html>
