@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Перекуп Авто",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "Перекуп",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "id": "Симулятор перекупа авто с 3D городом"
+}
